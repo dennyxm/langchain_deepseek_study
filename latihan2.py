@@ -11,6 +11,8 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 
 from langchain_community.chat_message_histories.file import FileChatMessageHistory
 
+from langchain.memory.summary import ConversationSummaryMemory
+
 from pydantic import BaseModel, Field
 
 from dotenv import load_dotenv
@@ -65,7 +67,16 @@ chain_with_history = RunnableWithMessageHistory(
     chain,
     get_by_session_id,
     input_messages_key="content",
-    history_messages_key="history"
+    history_messages_key="history",
+    conversationSummaryMemory=ConversationSummaryMemory(
+        llm=chat,
+        max_token_limit=1000,
+        memory_key="history",
+        return_messages=True,
+        human_prefix="User",
+        ai_prefix="Assistant",
+        verbose=True,
+    )
 )
 
 # Create a unique session ID for the chat

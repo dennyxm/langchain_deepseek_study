@@ -3,7 +3,6 @@
 
 import time
 from dotenv import load_dotenv
-#from langchain_deepseek import ChatDeepSeek
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 
@@ -48,7 +47,7 @@ print("elapsed time for 1 embed document: ", end_time - start_time)
 print()
 print("========================================")
 
-results = db.similarity_search("which one have more bacteria, cellphones or toilet handles ?", k=3)
+results = db.similarity_search("which one have more bacteria, cellphones or toilet handles ?", k=1)
 
 for result in results:
     print(result.metadata)
